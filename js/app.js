@@ -192,6 +192,23 @@
     busy = false; show(id);
   }
   fishes.forEach(function (f) { f.addEventListener('click', function () { pick(f); }); });
+  var certificatePreview = document.querySelector('.certificate-preview');
+  var certificateDialog = document.querySelector('#certificateDialog');
+  var certificateClose = document.querySelector('.certificate-close');
+  if (certificatePreview && certificateDialog) {
+    certificatePreview.addEventListener('click', function () {
+      if (typeof certificateDialog.showModal === 'function') certificateDialog.showModal();
+      else certificateDialog.setAttribute('open', '');
+    });
+  }
+  if (certificateClose && certificateDialog) {
+    certificateClose.addEventListener('click', function () { certificateDialog.close(); });
+  }
+  if (certificateDialog) {
+    certificateDialog.addEventListener('click', function (e) {
+      if (e.target === certificateDialog) certificateDialog.close();
+    });
+  }
   $('.school').addEventListener('keydown', function (e) {
     var i = fishes.indexOf(document.activeElement); if (i < 0) return;
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { fishes[(i + 1) % fishes.length].focus(); e.preventDefault(); }
