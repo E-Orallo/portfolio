@@ -314,3 +314,61 @@ button.btn.s.back,
   background:#ffe69a!important;
   color:#173b3f!important;
 }
+
+/* Feedback form: readable in light, dark, and underwater themes. */
+#feedback,
+#feedback .wrap,
+#feedback form,
+#feedback legend,
+#feedback label.q,
+#feedback p,
+#feedback #msg,
+#feedback #count,
+#feedback #inbox,
+#feedback #inbox .fb{
+  color:#173b3f!important;
+}
+#feedback form{
+  background:rgba(255,252,232,.96)!important;
+  border:2px solid rgba(23,59,63,.22)!important;
+  color:#173b3f!important;
+}
+#feedback legend,
+#feedback label.q,
+#feedback #msg,
+#feedback #count,
+#feedback #inbox .fb b,
+#feedback #inbox .fb p{
+  color:#173b3f!important;
+}
+#feedback .chip span{
+  background:#fffdf4!important;
+  color:#173b3f!important;
+  border:2px solid #70aab0!important;
+}
+#feedback .chip input:checked+span{
+  background:#f6cf63!important;
+  color:#173b3f!important;
+  border-color:#173b3f!important;
+}
+#feedback textarea,
+#feedback select{
+  background:#fff!important;
+  color:#173b3f!important;
+  border:2px solid #70aab0!important;
+  caret-color:#173b3f;
+}
+#feedback textarea::placeholder,
+#feedback select option{
+  color:#173b3f;
+}
+#feedback .btn.p,
+#feedback button[type="submit"]{
+  background:#173b3f!important;
+  color:#fffdf2!important;
+  border:2px solid #173b3f!important;
+}
+#feedback #inbox .fb{
+  background:rgba(255,255,255,.9)!important;
+  border:2px solid rgba(23,59,63,.18)!important;
+}
