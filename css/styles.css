@@ -269,3 +269,48 @@ main::after{
   main::after{height:110px}
   .catch .wrap{border-radius:18px;padding:22px 18px 16px}
 }
+
+/* Keep navigation visible in every theme and on underwater panels. */
+.themebtn{
+  background:#fffdf2!important;
+  color:#18353c!important;
+  border:2px solid #18353c!important;
+  box-shadow:0 3px 10px rgba(12,47,58,.18);
+}
+:root[data-theme="dark"] .themebtn,
+:root:not([data-theme="light"]) .themebtn{
+  background:#fffdf2!important;
+  color:#18353c!important;
+  border-color:#18353c!important;
+}
+.catch .btn.s,
+.catch .btn.back,
+button.btn.s.back,
+.btn.s.back{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:10px 18px;
+  background:#f6cf63!important;
+  color:#173b3f!important;
+  border:2px solid #173b3f!important;
+  border-radius:999px;
+  text-decoration:none;
+  box-shadow:0 4px 0 rgba(23,59,63,.18);
+}
+:root[data-theme="dark"] .catch .btn.s,
+:root[data-theme="dark"] .catch .btn.back,
+:root:not([data-theme="light"]) .catch .btn.s,
+:root:not([data-theme="light"]) .catch .btn.back{
+  background:#f6cf63!important;
+  color:#173b3f!important;
+  border-color:#173b3f!important;
+}
+.catch .btn.s:hover,
+.catch .btn.s:focus-visible,
+.catch .btn.back:hover,
+.catch .btn.back:focus-visible{
+  background:#ffe69a!important;
+  color:#173b3f!important;
+}
