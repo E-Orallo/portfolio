@@ -37,6 +37,9 @@
   function paint() {
     tbtn.textContent = isDark() ? '☀️' : '🌙';
     tbtn.setAttribute('aria-label', isDark() ? 'Switch to light theme' : 'Switch to dark theme');
+    tbtn.style.background = '#fffdf2';
+    tbtn.style.color = '#18353c';
+    tbtn.style.border = '2px solid #18353c';
   }
   var savedTheme = store('theme'); if (savedTheme) root.setAttribute('data-theme', savedTheme);
   paint();
@@ -115,7 +118,11 @@
     h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true });
     if (!fromHash) setHash(id);
     var index = ids.indexOf(id), next = fishes[(index + 1) % fishes.length];
-    s.querySelector('.back').textContent = 'Next: ' + next.querySelector('span').textContent;
+    var back = s.querySelector('.back');
+    back.textContent = 'Next: ' + next.querySelector('span').textContent;
+    back.style.background = '#f6cf63';
+    back.style.color = '#173b3f';
+    back.style.border = '2px solid #173b3f';
   }
   function showNone() {
     secs.forEach(function (s) { s.classList.remove('on'); });
@@ -162,6 +169,9 @@
   });
   secs.forEach(function (s) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'btn s back'; b.textContent = 'Next information';
+    b.style.background = '#f6cf63';
+    b.style.color = '#173b3f';
+    b.style.border = '2px solid #173b3f';
     b.addEventListener('click', function () {
       var index = secs.indexOf(s), next = fishes[(index + 1) % fishes.length];
       pick(next);
