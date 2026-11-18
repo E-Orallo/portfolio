@@ -40,6 +40,35 @@
     tbtn.style.background = '#fffdf2';
     tbtn.style.color = '#18353c';
     tbtn.style.border = '2px solid #18353c';
+    paintFeedback();
+  }
+  function paintFeedback() {
+    var feedback = $('#feedback');
+    if (!feedback) return;
+    var form = $('#fbform');
+    if (form) {
+      form.style.background = '#fffdf0';
+      form.style.border = '2px solid #70aab0';
+    }
+    $$('#feedback legend, #feedback label.q, #feedback p, #feedback #msg, #feedback #count, #feedback #inbox .fb b, #feedback #inbox .fb p').forEach(function (el) {
+      el.style.color = '#173b3f';
+    });
+    $$('#feedback .chip span').forEach(function (el) {
+      el.style.background = '#fffdf4';
+      el.style.color = '#173b3f';
+      el.style.border = '2px solid #70aab0';
+    });
+    $$('#feedback textarea, #feedback select').forEach(function (el) {
+      el.style.background = '#fff';
+      el.style.color = '#173b3f';
+      el.style.border = '2px solid #70aab0';
+    });
+    var submit = $('#feedback button[type="submit"]');
+    if (submit) {
+      submit.style.background = '#173b3f';
+      submit.style.color = '#fffdf2';
+      submit.style.border = '2px solid #173b3f';
+    }
   }
   var savedTheme = store('theme'); if (savedTheme) root.setAttribute('data-theme', savedTheme);
   paint();
