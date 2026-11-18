@@ -202,3 +202,70 @@ footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 36px}
   .ripple{position:absolute;z-index:3;width:18px;height:6px;margin:-3px 0 0 -9px;border:2px solid rgba(255,255,255,.9);border-radius:50%;pointer-events:none;animation:rip .9s ease-out forwards}
   @keyframes rip{to{transform:scale(6);opacity:0}}
 }
+
+/* Bikini Bottom-inspired information ocean */
+main{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(255,255,255,.18) 0 2px,transparent 3px),
+    radial-gradient(circle at 78% 28%,rgba(255,255,255,.12) 0 3px,transparent 4px),
+    linear-gradient(180deg,#64cde0 0%,#299eb8 58%,#8bd0a4 58%,#d9c98e 76%,#eadba3 100%);
+  background-size:140px 140px,220px 220px,100% 100%;
+}
+main::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0 0 90px;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 12% 15%,rgba(255,255,255,.42) 0 18px,transparent 19px),
+    radial-gradient(ellipse at 32% 8%,rgba(255,255,255,.25) 0 28px,transparent 29px),
+    radial-gradient(ellipse at 68% 18%,rgba(255,255,255,.34) 0 14px,transparent 15px),
+    repeating-linear-gradient(112deg,transparent 0 44px,rgba(255,255,255,.10) 45px 70px,transparent 71px 130px);
+  opacity:.8;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 72%,transparent 100%);
+}
+main::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-5%;
+  right:-5%;
+  bottom:-28px;
+  height:150px;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 8% 90%,#ea7e58 0 18px,transparent 19px),
+    radial-gradient(ellipse at 12% 100%,#f29a62 0 34px,transparent 35px),
+    radial-gradient(ellipse at 92% 95%,#6bbd73 0 22px,transparent 23px),
+    radial-gradient(ellipse at 96% 100%,#82cf7d 0 38px,transparent 39px),
+    radial-gradient(ellipse at 50% 100%,rgba(125,91,45,.18) 0 70px,transparent 71px),
+    linear-gradient(180deg,transparent 0 18px,#dfcf98 19px 100%);
+  border-radius:50% 50% 0 0 / 14% 14% 0 0;
+  box-shadow:0 -4px 0 rgba(255,255,255,.12);
+}
+.catch{z-index:2}
+.catch .wrap{
+  width:min(100%,1040px);
+  margin:0 auto;
+  background:rgba(255,252,232,.94);
+  color:#173b3f;
+  border:2px solid rgba(255,255,255,.78);
+  border-radius:24px;
+  padding:30px 30px 22px;
+  box-shadow:0 18px 44px rgba(20,88,105,.22),0 4px 0 rgba(255,230,138,.72);
+  backdrop-filter:blur(8px);
+}
+.catch .wrap h2,.catch .wrap h3,.catch .wrap p,.catch .wrap li,.catch .wrap .yr,.catch .wrap .m{color:#173b3f}
+.catch .wrap .skill,.catch .wrap .proj{background:rgba(255,255,255,.72);border-color:rgba(67,145,158,.24)}
+.catch .wrap .tags,.catch .wrap a{color:#197486}
+.catch .wrap .badge{color:#4b350b}
+.catch .wrap form{background:rgba(255,255,255,.82);border-color:rgba(67,145,158,.28)}
+@media (max-width:600px){
+  main{background-size:100px 100px,180px 180px,100% 100%}
+  main::after{height:110px}
+  .catch .wrap{border-radius:18px;padding:22px 18px 16px}
+}
