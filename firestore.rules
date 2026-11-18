@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /feedback/{documentId} {
+      allow create: if
+        request.resource.data.keys().hasAll(['rating', 'areas', 'role', 'note', 'at']) &&
+        request.resource.data.rating is int &&
+        request.resource.data.rating >= 1 &&
+        request.resource.data.rating <= 5 &&
+        request.resource.data.areas is list &&
+        request.resource.data.role is string &&
+        request.resource.data.note is string &&
+        request.resource.data.at is int &&
+        request.resource.data.note.size() <= 1000;
+
+      allow read, update, delete: if false;
+    }
+  }
+}
