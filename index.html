@@ -154,7 +154,8 @@ body{font-size:16px;line-height:1.6}
 .fish svg{display:block;width:46px;fill:var(--c)}
 .fish.is-on{background:var(--ink);color:var(--bg)}
 .fish.is-on span{text-decoration:none}
-.rig{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;overflow:hidden}
+.rig{display:none!important}
+.hooked{display:none!important}
 .hint{display:none}
 .catch{padding:58px 0 12px}
 .catch .wrap{border:0;border-radius:0;padding:0;box-shadow:none;background:transparent}
@@ -215,7 +216,6 @@ footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 36px}
 <header class="scene" id="scene">
 <div class="sky" id="sky"><button class="themebtn" id="theme" type="button" aria-label="Switch theme"></button><div class="wrap hero-grid"><div><p class="eyebrow">ASPIRING CAREER: ANDROID DEVELOPER · SOFTWARE DEVELOPER · SOFTWARE ENGINEER</p><h1>Enrico C. Orallo</h1><p class="role">Junior Android developer and BSIT student in Manila, graduating in 2027.</p><p class="lead">Fishing for an OJT or entry-level role. Pick a fish below and I’ll reel in what you want to read.</p></div><figure class="portrait"><img src="profile.jpg" alt="Portrait of Enrico C. Orallo"><figcaption>Building useful things, one screen at a time.</figcaption></figure></div></div>
 <div class="water" id="water"><div class="wrap"><div class="school" role="group" aria-label="Pick what to read"><button class="fish" type="button" data-t="about" aria-pressed="false" style="--c:#f6b73c;--dl:0.0s"><svg viewBox="0 0 80 40" aria-hidden="true"><polygon points="18,20 0,5 0,35"/><ellipse cx="46" cy="20" rx="30" ry="15"/><circle cx="63" cy="15" r="4" fill="#fff"/><circle cx="64" cy="15" r="2" fill="#10303b"/></svg><span>About me</span></button><button class="fish" type="button" data-t="skills" aria-pressed="false" style="--c:#ff8a65;--dl:0.5s"><svg viewBox="0 0 80 40" aria-hidden="true"><polygon points="18,20 0,5 0,35"/><ellipse cx="46" cy="20" rx="30" ry="15"/><circle cx="63" cy="15" r="4" fill="#fff"/><circle cx="64" cy="15" r="2" fill="#10303b"/></svg><span>Skills</span></button><button class="fish" type="button" data-t="projects" aria-pressed="false" style="--c:#8fd694;--dl:1.0s"><svg viewBox="0 0 80 40" aria-hidden="true"><polygon points="18,20 0,5 0,35"/><ellipse cx="46" cy="20" rx="30" ry="15"/><circle cx="63" cy="15" r="4" fill="#fff"/><circle cx="64" cy="15" r="2" fill="#10303b"/></svg><span>Projects</span></button><button class="fish" type="button" data-t="experience" aria-pressed="false" style="--c:#7cc4f0;--dl:1.5s"><svg viewBox="0 0 80 40" aria-hidden="true"><polygon points="18,20 0,5 0,35"/><ellipse cx="46" cy="20" rx="30" ry="15"/><circle cx="63" cy="15" r="4" fill="#fff"/><circle cx="64" cy="15" r="2" fill="#10303b"/></svg><span>Experience</span></button><button class="fish" type="button" data-t="education" aria-pressed="false" style="--c:#f08fc0;--dl:2.0s"><svg viewBox="0 0 80 40" aria-hidden="true"><polygon points="18,20 0,5 0,35"/><ellipse cx="46" cy="20" rx="30" ry="15"/><circle cx="63" cy="15" r="4" fill="#fff"/><circle cx="64" cy="15" r="2" fill="#10303b"/></svg><span>Education</span></button><button class="fish" type="button" data-t="feedback" aria-pressed="false" style="--c:#c9a6ff;--dl:2.5s"><svg viewBox="0 0 80 40" aria-hidden="true"><polygon points="18,20 0,5 0,35"/><ellipse cx="46" cy="20" rx="30" ry="15"/><circle cx="63" cy="15" r="4" fill="#fff"/><circle cx="64" cy="15" r="2" fill="#10303b"/></svg><span>Feedback</span></button></div></div></div>
-<svg class="rig" id="rig" aria-hidden="true"><path id="rod" fill="none" stroke="#6f4a2b" stroke-width="5" stroke-linecap="round"/><line id="line" stroke="var(--ink)" stroke-width="1.6" opacity=".85"/><g id="hook"><circle r="3.5" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M0 3 v9 a6 6 0 0 0 11 2" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/></g></svg>
 </header>
 
 <main>
@@ -363,35 +363,11 @@ window.SITE_CONFIG = {
   if (mq.addEventListener) mq.addEventListener('change', paint);
 
   /* ---- Fishing navigation ---- */
-  var scene = $('#scene'), sky = $('#sky'), rod = $('#rod'), line = $('#line'), hook = $('#hook'), hint = $('#hint'),
+  var scene = $('#scene'), hint = $('#hint'),
       fishes = $$('.fish'), secs = $$('.catch'), ids = secs.map(function (s) { return s.id; }),
-      busy = false, hf = null, P = {}, cur = { x: 0, y: 0 };
+      busy = false;
 
-  function layout() {
-    var W = scene.clientWidth, sh = sky.offsetHeight;
-    P.b = { x: W < 600 ? 14 : 32, y: sh - 12 };
-    P.t = { x: W < 600 ? 58 : 190, y: W < 600 ? 42 : 52 };
-    P.wt = sh;
-    P.r = { x: P.t.x, y: sh - 34 };
-    draw(busy ? cur : P.r, 0);
-  }
-  function draw(h, t) {
-    cur = h;
-    var cx = (P.b.x + P.t.x) / 2, cy = (P.b.y + P.t.y) / 2 + 28 * t, ty = P.t.y + 5 * t;
-    rod.setAttribute('d', 'M' + P.b.x + ' ' + P.b.y + ' Q' + cx + ' ' + cy + ' ' + P.t.x + ' ' + ty);
-    line.setAttribute('x1', P.t.x); line.setAttribute('y1', ty); line.setAttribute('x2', h.x); line.setAttribute('y2', h.y);
-    hook.setAttribute('transform', 'translate(' + h.x + ' ' + h.y + ')');
-    if (hf) { hf.style.left = h.x + 'px'; hf.style.top = h.y + 'px'; }
-  }
-  function ripple(x) {
-    var r = document.createElement('span'); r.className = 'ripple'; r.style.left = x + 'px'; r.style.top = P.wt + 'px';
-    scene.appendChild(r); setTimeout(function () { r.remove(); }, 900);
-  }
-  function mouth(btn) {
-    var s = scene.getBoundingClientRect(), icon = btn.querySelector('svg');
-    var v = (icon || btn).getBoundingClientRect();
-    return { x: v.right - s.left - 8, y: v.top - s.top + v.height / 2 };
-  }
+  function layout() {}
   function ease(p) { return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
   function tween(ms, fn) {
     return new Promise(function (res) {
@@ -442,24 +418,9 @@ window.SITE_CONFIG = {
     if (busy) return;
     busy = true;
     secs.forEach(function (s) { s.classList.remove('on'); });
-    var m = mouth(btn), r0 = P.r, rp = false;
-    await tween(700, function (e) {
-      draw({ x: r0.x + (m.x - r0.x) * e, y: r0.y + (m.y - r0.y) * e }, .35 * e);
-      if (!rp && cur.y > P.wt) { rp = true; ripple(cur.x); }
-    });
-    hf = btn.cloneNode(true); hf.className = 'hooked'; hf.removeAttribute('data-t');
-    hf.setAttribute('aria-hidden', 'true'); hf.tabIndex = -1;
-    scene.appendChild(hf); btn.style.visibility = 'hidden'; draw(cur, .5);
-    await tween(220, function (e, p) {
-      draw({ x: m.x + Math.sin(p * 18) * 4 * (1 - p), y: m.y + Math.sin(p * 12) * 3 * (1 - p) }, .5 + .3 * p);
-    });
-    var up = false;
-    await tween(850, function (e) {
-      var x = m.x + (r0.x - m.x) * e, y = m.y + (r0.y - m.y) * e;
-      draw({ x: x, y: y }, .8 - .5 * e);
-      if (!up && y < P.wt) { up = true; ripple(x); }
-    });
-    hf.remove(); hf = null; btn.style.visibility = ''; draw(P.r, 0);
+    btn.classList.add('catching');
+    await tween(650, function () {});
+    btn.classList.remove('catching');
     busy = false; show(id);
   }
   fishes.forEach(function (f) { f.addEventListener('click', function () { pick(f); }); });

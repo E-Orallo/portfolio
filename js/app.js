@@ -46,29 +46,12 @@
   if (mq.addEventListener) mq.addEventListener('change', paint);
 
   /* ---- Fishing navigation ---- */
-  var scene = $('#scene'), sky = $('#sky'), rod = $('#rod'), line = $('#line'), hook = $('#hook'), hint = $('#hint'),
+  var scene = $('#scene'), hint = $('#hint'),
       fishes = $$('.fish'), secs = $$('.catch'), ids = secs.map(function (s) { return s.id; }),
-      busy = false, hf = null, P = {}, cur = { x: 0, y: 0 };
+      busy = false;
 
   function layout() {
-    var W = scene.clientWidth, sh = sky.offsetHeight;
-    P.b = { x: W < 600 ? 14 : 32, y: sh - 12 };
-    P.t = { x: W < 600 ? 58 : 190, y: W < 600 ? 42 : 52 };
-    P.wt = sh;
-    P.r = { x: P.t.x, y: sh - 34 };
-    draw(busy ? cur : P.r, 0);
-  }
-  function draw(h, t) {
-    cur = h;
-    var cx = (P.b.x + P.t.x) / 2, cy = (P.b.y + P.t.y) / 2 + 28 * t, ty = P.t.y + 5 * t;
-    rod.setAttribute('d', 'M' + P.b.x + ' ' + P.b.y + ' Q' + cx + ' ' + cy + ' ' + P.t.x + ' ' + ty);
-    line.setAttribute('x1', P.t.x); line.setAttribute('y1', ty); line.setAttribute('x2', h.x); line.setAttribute('y2', h.y);
-    hook.setAttribute('transform', 'translate(' + h.x + ' ' + h.y + ')');
-    if (hf) { hf.style.left = h.x + 'px'; hf.style.top = h.y + 'px'; }
-  }
-  function ripple(x) {
-    var r = document.createElement('span'); r.className = 'ripple'; r.style.left = x + 'px'; r.style.top = P.wt + 'px';
-    scene.appendChild(r); setTimeout(function () { r.remove(); }, 900);
+    /* The fish itself provides the only navigation motion. */
   }
   function ease(p) { return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
   function tween(ms, fn) {
@@ -81,11 +64,6 @@
       }
       requestAnimationFrame(f);
     });
-  }
-  function mouth(btn) {
-    var s = scene.getBoundingClientRect(), icon = btn.querySelector('svg');
-    var v = (icon || btn).getBoundingClientRect();
-    return { x: v.right - s.left - 8, y: v.top - s.top + v.height / 2 };
   }
   function addDiveBubbles(section) {
     if (reduce) return;
@@ -125,24 +103,9 @@
     if (busy) return;
     busy = true;
     secs.forEach(function (s) { s.classList.remove('on'); });
-    var m = mouth(btn), r0 = P.r, rp = false;
-    await tween(700, function (e) {
-      draw({ x: r0.x + (m.x - r0.x) * e, y: r0.y + (m.y - r0.y) * e }, .35 * e);
-      if (!rp && cur.y > P.wt) { rp = true; ripple(cur.x); }
-    });
-    hf = btn.cloneNode(true); hf.className = 'hooked'; hf.removeAttribute('data-t');
-    hf.setAttribute('aria-hidden', 'true'); hf.tabIndex = -1;
-    scene.appendChild(hf); btn.style.visibility = 'hidden'; draw(cur, .5);
-    await tween(220, function (e, p) {
-      draw({ x: m.x + Math.sin(p * 18) * 4 * (1 - p), y: m.y + Math.sin(p * 12) * 3 * (1 - p) }, .5 + .3 * p);
-    });
-    var up = false;
-    await tween(850, function (e) {
-      var x = m.x + (r0.x - m.x) * e, y = m.y + (r0.y - m.y) * e;
-      draw({ x: x, y: y }, .8 - .5 * e);
-      if (!up && y < P.wt) { up = true; ripple(x); }
-    });
-    hf.remove(); hf = null; btn.style.visibility = ''; draw(P.r, 0);
+    btn.classList.add('catching');
+    await tween(650, function () {});
+    btn.classList.remove('catching');
     busy = false; show(id);
   }
   fishes.forEach(function (f) { f.addEventListener('click', function () { pick(f); }); });
