@@ -378,6 +378,48 @@ button.btn.s.back,
   color:#8fc4cc;
 }
 
+:root[data-theme="dark"] #feedback form,
+:root:not([data-theme="light"]) #feedback form{
+  background:#14272c!important;
+  border-color:#70aab0!important;
+}
+:root[data-theme="dark"] #feedback legend,
+:root[data-theme="dark"] #feedback label.q,
+:root[data-theme="dark"] #feedback p,
+:root[data-theme="dark"] #feedback #msg,
+:root[data-theme="dark"] #feedback #count,
+:root[data-theme="dark"] #feedback #inbox .fb b,
+:root[data-theme="dark"] #feedback #inbox .fb p,
+:root:not([data-theme="light"]) #feedback legend,
+:root:not([data-theme="light"]) #feedback label.q,
+:root:not([data-theme="light"]) #feedback p,
+:root:not([data-theme="light"]) #feedback #msg,
+:root:not([data-theme="light"]) #feedback #count,
+:root:not([data-theme="light"]) #feedback #inbox .fb b,
+:root:not([data-theme="light"]) #feedback #inbox .fb p{
+  color:#edf2f2!important;
+}
+:root[data-theme="dark"] #feedback .chip span,
+:root:not([data-theme="light"]) #feedback .chip span{
+  background:#1c3035!important;
+  color:#edf2f2!important;
+  border-color:#70aab0!important;
+}
+:root[data-theme="dark"] #feedback .chip input:checked+span,
+:root:not([data-theme="light"]) #feedback .chip input:checked+span{
+  background:#f6cf63!important;
+  color:#173b3f!important;
+  border-color:#173b3f!important;
+}
+:root[data-theme="dark"] #feedback textarea,
+:root[data-theme="dark"] #feedback select,
+:root:not([data-theme="light"]) #feedback textarea,
+:root:not([data-theme="light"]) #feedback select{
+  background:#0f2024!important;
+  color:#edf2f2!important;
+  border-color:#70aab0!important;
+}
+
 /* Feedback form: readable in light, dark, and underwater themes. */
 #feedback,
 #feedback .wrap,
