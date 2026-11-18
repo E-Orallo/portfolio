@@ -45,22 +45,23 @@
   function paintFeedback() {
     var feedback = $('#feedback');
     if (!feedback) return;
+    var dark = isDark();
     var form = $('#fbform');
     if (form) {
-      form.style.background = '#fffdf0';
-      form.style.border = '2px solid #70aab0';
+      form.style.background = dark ? '#14272c' : '#fffdf0';
+      form.style.border = dark ? '2px solid #70aab0' : '2px solid #70aab0';
     }
     $$('#feedback legend, #feedback label.q, #feedback p, #feedback #msg, #feedback #count, #feedback #inbox .fb b, #feedback #inbox .fb p').forEach(function (el) {
-      el.style.color = '#173b3f';
+      el.style.color = dark ? '#edf2f2' : '#173b3f';
     });
     $$('#feedback .chip span').forEach(function (el) {
-      el.style.background = '#fffdf4';
-      el.style.color = '#173b3f';
-      el.style.border = '2px solid #70aab0';
+      el.style.background = dark ? '#1c3035' : '#fffdf4';
+      el.style.color = dark ? '#edf2f2' : '#173b3f';
+      el.style.border = dark ? '2px solid #70aab0' : '2px solid #70aab0';
     });
     $$('#feedback textarea, #feedback select').forEach(function (el) {
-      el.style.background = '#fff';
-      el.style.color = '#173b3f';
+      el.style.background = dark ? '#0f2024' : '#fff';
+      el.style.color = dark ? '#edf2f2' : '#173b3f';
       el.style.border = '2px solid #70aab0';
     });
     var submit = $('#feedback button[type="submit"]');

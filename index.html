@@ -236,6 +236,12 @@ main::after{content:"";position:absolute;z-index:-1;left:-5%;right:-5%;bottom:-2
 #feedback textarea::placeholder,#feedback select option{color:#173b3f}
 #feedback .btn.p,#feedback button[type="submit"]{background:#173b3f!important;color:#fffdf2!important;border:2px solid #173b3f!important}
 #feedback #inbox .fb{background:rgba(255,255,255,.9)!important;border:2px solid rgba(23,59,63,.18)!important}
+:root[data-theme="dark"] main,:root:not([data-theme="light"]) main{background:radial-gradient(circle at 12% 18%,rgba(153,226,238,.12) 0 2px,transparent 3px),radial-gradient(circle at 78% 28%,rgba(153,226,238,.08) 0 3px,transparent 4px),linear-gradient(180deg,#163845 0%,#0d2a38 58%,#183a3d 58%,#293e3a 76%,#314840 100%);background-size:140px 140px,220px 220px,100% 100%}
+:root[data-theme="dark"] main::after,:root:not([data-theme="light"]) main::after{background:radial-gradient(ellipse at 8% 90%,#70483f 0 18px,transparent 19px),radial-gradient(ellipse at 12% 100%,#80604d 0 34px,transparent 35px),radial-gradient(ellipse at 92% 95%,#355e4e 0 22px,transparent 23px),radial-gradient(ellipse at 96% 100%,#406b57 0 38px,transparent 39px),linear-gradient(180deg,transparent 0 18px,#263d38 19px 100%)}
+:root[data-theme="dark"] .catch .wrap,:root:not([data-theme="light"]) .catch .wrap{background:rgba(20,39,44,.96)!important;color:#edf2f2!important;border-color:rgba(143,196,204,.24)!important;box-shadow:0 18px 44px rgba(0,0,0,.34),0 4px 0 rgba(64,116,124,.28)}
+:root[data-theme="dark"] .catch .wrap h2,:root[data-theme="dark"] .catch .wrap h3,:root[data-theme="dark"] .catch .wrap p,:root[data-theme="dark"] .catch .wrap li,:root[data-theme="dark"] .catch .wrap .yr,:root[data-theme="dark"] .catch .wrap .m,:root:not([data-theme="light"]) .catch .wrap h2,:root:not([data-theme="light"]) .catch .wrap h3,:root:not([data-theme="light"]) .catch .wrap p,:root:not([data-theme="light"]) .catch .wrap li,:root:not([data-theme="light"]) .catch .wrap .yr,:root:not([data-theme="light"]) .catch .wrap .m{color:#edf2f2!important}
+:root[data-theme="dark"] .catch .wrap .skill,:root[data-theme="dark"] .catch .wrap .proj,:root:not([data-theme="light"]) .catch .wrap .skill,:root:not([data-theme="light"]) .catch .wrap .proj{background:rgba(28,48,53,.88)!important;border-color:rgba(143,196,204,.24)!important}
+:root[data-theme="dark"] #feedback form,:root:not([data-theme="light"]) #feedback form{background:#14272c!important;border-color:rgba(143,196,204,.24)!important}
 </style>
 <script>document.documentElement.classList.add("js")</script>
 </head>
@@ -391,22 +397,23 @@ window.SITE_CONFIG = {
   function paintFeedback() {
     var feedback = $('#feedback');
     if (!feedback) return;
+    var dark = isDark();
     var form = $('#fbform');
     if (form) {
-      form.style.background = '#fffdf0';
+      form.style.background = dark ? '#14272c' : '#fffdf0';
       form.style.border = '2px solid #70aab0';
     }
     $$('#feedback legend, #feedback label.q, #feedback p, #feedback #msg, #feedback #count, #feedback #inbox .fb b, #feedback #inbox .fb p').forEach(function (el) {
-      el.style.color = '#173b3f';
+      el.style.color = dark ? '#edf2f2' : '#173b3f';
     });
     $$('#feedback .chip span').forEach(function (el) {
-      el.style.background = '#fffdf4';
-      el.style.color = '#173b3f';
+      el.style.background = dark ? '#1c3035' : '#fffdf4';
+      el.style.color = dark ? '#edf2f2' : '#173b3f';
       el.style.border = '2px solid #70aab0';
     });
     $$('#feedback textarea, #feedback select').forEach(function (el) {
-      el.style.background = '#fff';
-      el.style.color = '#173b3f';
+      el.style.background = dark ? '#0f2024' : '#fff';
+      el.style.color = dark ? '#edf2f2' : '#173b3f';
       el.style.border = '2px solid #70aab0';
     });
     var submit = $('#feedback button[type="submit"]');

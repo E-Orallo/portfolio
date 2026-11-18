@@ -315,6 +315,69 @@ button.btn.s.back,
   color:#173b3f!important;
 }
 
+/* Sync the information ocean with the global theme. */
+:root[data-theme="dark"] main,
+:root:not([data-theme="light"]) main{
+  background:
+    radial-gradient(circle at 12% 18%,rgba(153,226,238,.12) 0 2px,transparent 3px),
+    radial-gradient(circle at 78% 28%,rgba(153,226,238,.08) 0 3px,transparent 4px),
+    linear-gradient(180deg,#163845 0%,#0d2a38 58%,#183a3d 58%,#293e3a 76%,#314840 100%);
+  background-size:140px 140px,220px 220px,100% 100%;
+}
+:root[data-theme="dark"] main::before,
+:root:not([data-theme="light"]) main::before{
+  background:
+    radial-gradient(ellipse at 12% 15%,rgba(117,193,207,.14) 0 18px,transparent 19px),
+    radial-gradient(ellipse at 32% 8%,rgba(117,193,207,.10) 0 28px,transparent 29px),
+    radial-gradient(ellipse at 68% 18%,rgba(117,193,207,.12) 0 14px,transparent 15px),
+    repeating-linear-gradient(112deg,transparent 0 44px,rgba(117,193,207,.05) 45px 70px,transparent 71px 130px);
+  opacity:.7;
+}
+:root[data-theme="dark"] main::after,
+:root:not([data-theme="light"]) main::after{
+  background:
+    radial-gradient(ellipse at 8% 90%,#70483f 0 18px,transparent 19px),
+    radial-gradient(ellipse at 12% 100%,#80604d 0 34px,transparent 35px),
+    radial-gradient(ellipse at 92% 95%,#355e4e 0 22px,transparent 23px),
+    radial-gradient(ellipse at 96% 100%,#406b57 0 38px,transparent 39px),
+    radial-gradient(ellipse at 50% 100%,rgba(4,20,25,.38) 0 70px,transparent 71px),
+    linear-gradient(180deg,transparent 0 18px,#263d38 19px 100%);
+}
+:root[data-theme="dark"] .catch .wrap,
+:root:not([data-theme="light"]) .catch .wrap{
+  background:rgba(20,39,44,.96);
+  color:#edf2f2;
+  border-color:rgba(143,196,204,.24);
+  box-shadow:0 18px 44px rgba(0,0,0,.34),0 4px 0 rgba(64,116,124,.28);
+}
+:root[data-theme="dark"] .catch .wrap h2,
+:root[data-theme="dark"] .catch .wrap h3,
+:root[data-theme="dark"] .catch .wrap p,
+:root[data-theme="dark"] .catch .wrap li,
+:root[data-theme="dark"] .catch .wrap .yr,
+:root[data-theme="dark"] .catch .wrap .m,
+:root:not([data-theme="light"]) .catch .wrap h2,
+:root:not([data-theme="light"]) .catch .wrap h3,
+:root:not([data-theme="light"]) .catch .wrap p,
+:root:not([data-theme="light"]) .catch .wrap li,
+:root:not([data-theme="light"]) .catch .wrap .yr,
+:root:not([data-theme="light"]) .catch .wrap .m{
+  color:#edf2f2;
+}
+:root[data-theme="dark"] .catch .wrap .skill,
+:root[data-theme="dark"] .catch .wrap .proj,
+:root:not([data-theme="light"]) .catch .wrap .skill,
+:root:not([data-theme="light"]) .catch .wrap .proj{
+  background:rgba(28,48,53,.88);
+  border-color:rgba(143,196,204,.24);
+}
+:root[data-theme="dark"] .catch .wrap .tags,
+:root[data-theme="dark"] .catch .wrap a,
+:root:not([data-theme="light"]) .catch .wrap .tags,
+:root:not([data-theme="light"]) .catch .wrap a{
+  color:#8fc4cc;
+}
+
 /* Feedback form: readable in light, dark, and underwater themes. */
 #feedback,
 #feedback .wrap,
