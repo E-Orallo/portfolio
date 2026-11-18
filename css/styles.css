@@ -194,3 +194,11 @@ footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 36px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sky{background:linear-gradient(180deg,#2d4656 0%,#6f7d78 68%,#3d4c45 100%)}:root:not([data-theme="light"]) .water{background:linear-gradient(180deg,#315d6b,#153845)}}
 :root[data-theme="dark"] .sky{background:linear-gradient(180deg,#2d4656 0%,#6f7d78 68%,#3d4c45 100%)}
 :root[data-theme="dark"] .water{background:linear-gradient(180deg,#315d6b,#153845)}
+@media (min-width:601px){
+  .rig{display:block!important;position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;overflow:hidden}
+  .hooked{position:absolute;z-index:5;pointer-events:none;background:none;border:0;padding:0;transform-origin:100% 30%;transform:translate(-92%,-30%) rotate(-24deg)}
+  .hooked span{display:none}
+  .hooked svg{width:46px;display:block;fill:var(--c)}
+  .ripple{position:absolute;z-index:3;width:18px;height:6px;margin:-3px 0 0 -9px;border:2px solid rgba(255,255,255,.9);border-radius:50%;pointer-events:none;animation:rip .9s ease-out forwards}
+  @keyframes rip{to{transform:scale(6);opacity:0}}
+}
