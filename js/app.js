@@ -220,6 +220,13 @@
 
   /* ---- Feedback ---- */
   var form = $('#fbform'), msg = $('#msg'), db = null, uid = null;
+  var firebaseDb = null;
+  if (window.firebase && CFG.firebase) {
+    try {
+      if (!firebase.apps.length) firebase.initializeApp(CFG.firebase);
+      firebaseDb = firebase.firestore();
+    } catch (err) { firebaseDb = null; }
+  }
   function say(t) { msg.textContent = t; }
   function collect() {
     var r = form.querySelector('input[name=rating]:checked');
@@ -276,7 +283,8 @@
     if (!d.rating && !d.areas.length && !d.note) { say('Pick a rating, an area, or write a note first.'); return; }
     var sent = false;
     try {
-      if (db && uid) { await db.doc('feedback/' + uid).set(d); sent = true; }
+      if (firebaseDb) { await firebaseDb.collection('feedback').add(d); sent = true; }
+      else if (db && uid) { await db.doc('feedback/' + uid).set(d); sent = true; }
       else if (CFG.feedbackEndpoint) {
         var r = await fetch(CFG.feedbackEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(d) });
         sent = r.ok;

@@ -11,6 +11,8 @@
 <meta name="theme-color" content="#23778a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🎣%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=Nunito:wght@400;600&display=swap">
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <style>
 :root{--bg:#f5efe0;--sand:#efe6cf;--sun:#f6b73c;--sea:#126f86;--deep:#0b4658;--ink:#10303b;--mute:#566a70;--line:#e0d3b4;--card:#fffdf7;--coral:#c9501e;--coral-ink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1a22;--sand:#10242e;--sun:#f6b73c;--sea:#7fd3e8;--deep:#041d27;--ink:#e9f3f6;--mute:#9dbbc4;--line:#24505f;--card:#12303c;--coral:#ff9a62;--coral-ink:#2b0a04}}
@@ -350,7 +352,16 @@ window.SITE_CONFIG = {
   github: "https://github.com/E-Orallo",
   // Paste a Formspree (or similar) endpoint to receive feedback by email, e.g.
   // "https://formspree.io/f/xxxxxxxx". Leave empty to use the email fallback.
-  feedbackEndpoint: ""
+  feedbackEndpoint: "",
+  firebase: {
+    apiKey: "AIzaSyB2lZFgSlE4UCSme_29liVd-ANlO7LTiCs",
+    authDomain: "portfolio-ser.firebaseapp.com",
+    projectId: "portfolio-ser",
+    storageBucket: "portfolio-ser.firebasestorage.app",
+    messagingSenderId: "332587604118",
+    appId: "1:332587604118:web:cd0c810e0d0f0141c3cab7",
+    measurementId: "G-J3S5QTBPND"
+  }
 };
 
 </script>
@@ -575,6 +586,13 @@ window.SITE_CONFIG = {
 
   /* ---- Feedback ---- */
   var form = $('#fbform'), msg = $('#msg'), db = null, uid = null;
+  var firebaseDb = null;
+  if (window.firebase && CFG.firebase) {
+    try {
+      if (!firebase.apps.length) firebase.initializeApp(CFG.firebase);
+      firebaseDb = firebase.firestore();
+    } catch (err) { firebaseDb = null; }
+  }
   function say(t) { msg.textContent = t; }
   function collect() {
     var r = form.querySelector('input[name=rating]:checked');
@@ -631,7 +649,8 @@ window.SITE_CONFIG = {
     if (!d.rating && !d.areas.length && !d.note) { say('Pick a rating, an area, or write a note first.'); return; }
     var sent = false;
     try {
-      if (db && uid) { await db.doc('feedback/' + uid).set(d); sent = true; }
+      if (firebaseDb) { await firebaseDb.collection('feedback').add(d); sent = true; }
+      else if (db && uid) { await db.doc('feedback/' + uid).set(d); sent = true; }
       else if (CFG.feedbackEndpoint) {
         var r = await fetch(CFG.feedbackEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(d) });
         sent = r.ok;
